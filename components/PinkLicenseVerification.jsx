@@ -7,7 +7,7 @@ const uploadImagesWithFetch = async (licenseFile, userPhotoFile) => {
     formData.append('license_image', licenseFile);
     formData.append('user_photo', userPhotoFile);
 
-    const response = await fetch('http://127.0.0.1:5001/ocr', {
+    const response = await fetch('https://drivers-liscence-production.up.railway.app/ocr', {
       method: 'POST',
       body: formData,
     });
