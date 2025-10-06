@@ -91,6 +91,7 @@ input[type="submit"]:hover {
 }
 
 .middle{
+  text-align: center;
   padding-bottom: 40px;
   font-family: "Plus Jakarta Sans", sans-serif;
   font-style: normal;
