@@ -89,7 +89,7 @@ export default function Giveride() {
           padding: '20px 0'
         }}>
           <p style={{ marginBottom: '20px' }}>Good news! In order to become a driver you only need to do 4 things!</p>
-          <p style={{ marginBottom: '20px' }}>First, we require a simple liscence verification. Then, enter your name, phone number, address and fee! This will allow anyone who needs a ride to contact you! Your address will help them ensure they're reaching out to someone in their area (It can just be your town if that feels more comfortable).</p>
+          <p style={{ marginBottom: '20px' }}>First, we require a simple liscence verification. Then, enter your name, phone number, address and fee! This will allow anyone who needs a ride to contact you! Your address will help them ensure they&apos;re reaching out to someone in their area (It can just be your town if that feels more comfortable).</p>
           <p style={{ marginBottom: '20px' }}>Feel free to include any other details in the address box. Also note that the phone number you provide will be users way of contacting you!</p>
         </div>
       </div>
@@ -98,7 +98,7 @@ export default function Giveride() {
       <div className="sign">
         <h2>License Verification Required</h2>
         <p style={{ color: "#666", marginBottom: "20px" }}>
-          Please upload your driver's license and a photo of yourself for verification.
+          Please upload your driver&apos;s license and a photo of yourself for verification.
         </p>
         
         <PinkLicenseVerification 
@@ -241,7 +241,7 @@ export default function Giveride() {
             boxShadow: "0 4px 15px rgba(255,182,193,0.4)",
             border: "2px solid rgba(255,255,255,0.3)"
           }}>
-            ✨ You're signed up!!! ✨
+            ✨ You&apos;re signed up!!! ✨
           </div>
         </div>
       )}
