@@ -183,7 +183,7 @@ export default function Needride() {
                     <p style={{ color: "white" }}>hi</p>
                     <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
                       <a 
-                        href="http://localhost:3001"
+                        href="https://rider-chat-pji2.vercel.app"
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{
