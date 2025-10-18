@@ -1,16 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
-import { getOrCreateRoom } from "../../lib/roomManager";
-import LoginButton from "../../components/LoginButton";
 
 export default function Needride() {
-  const { data: session, status } = useSession();
   const [drivers, setDrivers] = useState([]);
   const [filteredDrivers, setFilteredDrivers] = useState([]);
   const [selectedTown, setSelectedTown] = useState('all');
-  const [isCreatingRoom, setIsCreatingRoom] = useState(false);
   
   const towns = [
     'Charlotte', 'Shelburne', 'Hinesburg', 'Williston', 'Colchester', 
@@ -66,36 +61,6 @@ export default function Needride() {
     }
   }, [selectedTown, drivers]);
 
-  // Function to handle chat button click
-  const handleChatClick = async (driver) => {
-    setIsCreatingRoom(true);
-    try {
-      console.log('Creating/Getting room for driver:', driver.fields.Name);
-      
-      // Use simple identifiers without authentication
-      const driverId = `driver_${driver.id || driver.fields.Name}`;
-      const driverName = driver.fields.Name;
-      const riderId = `rider_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`; // Generate unique rider ID
-      const riderName = 'Rider'; // Generic rider name
-      
-      console.log('Driver ID:', driverId);
-      console.log('Rider ID:', riderId);
-      
-      const room = await getOrCreateRoom(driverId, driverName, riderId, riderName);
-      
-      console.log('Room created/retrieved:', room);
-      
-      // Open external chat with room ID as parameter
-      const chatUrl = `https://rider-chat-pji2.vercel.app?roomId=${room.id}&driverName=${encodeURIComponent(driverName)}&riderName=${encodeURIComponent(riderName)}`;
-      window.open(chatUrl, '_blank');
-      
-    } catch (error) {
-      console.error('Error creating/getting room:', error);
-      alert('Failed to start chat. Please try again.');
-    } finally {
-      setIsCreatingRoom(false);
-    }
-  };
 
   return (
     <div className="label">
@@ -117,59 +82,6 @@ export default function Needride() {
       <div className="text">
         <p>Time to get you where you need to go! Below you will find a list of qualified drivers who have signed up from the program!</p>
         <p>(Fee is dollars per mile)</p>
-      </div>
-
-      {/* Town Chat Rooms */}
-      <div style={{
-        margin: '20px 0',
-        padding: '20px',
-        backgroundColor: '#fef7f7',
-        borderRadius: '15px',
-        border: '2px solid #ffb6c1',
-        textAlign: 'center'
-      }}>
-        <h3 style={{
-          color: '#ff91a4',
-          marginBottom: '15px',
-          fontSize: '18px'
-        }}>
-          💬 Town Chat Rooms
-        </h3>
-        <p style={{
-          color: '#666',
-          fontSize: '14px',
-          marginBottom: '15px'
-        }}>
-          Join your town's community chat!
-        </p>
-        <div style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '10px',
-          justifyContent: 'center'
-        }}>
-          {towns.filter(town => town !== 'Other').map(town => (
-            <button
-              key={town}
-              onClick={() => {
-                const chatUrl = `https://rider-chat-pji2.vercel.app?town=${encodeURIComponent(town)}`;
-                window.open(chatUrl, '_blank');
-              }}
-              style={{
-                padding: '8px 16px',
-                backgroundColor: '#ff69b4',
-                color: 'white',
-                border: 'none',
-                borderRadius: '20px',
-                cursor: 'pointer',
-                fontSize: '14px',
-                fontWeight: 'bold'
-              }}
-            >
-              🏘️ {town} Chat
-            </button>
-          ))}
-        </div>
       </div>
 
       {/* Town Filter */}
@@ -219,7 +131,6 @@ export default function Needride() {
           </p>
         )}
       </div>
-
       <div className="drive" style={{ fontSize: 30, paddingTop: 30 }}>
         Drivers{selectedTown !== 'all' ? ` in ${selectedTown}` : ''}:
       </div>
@@ -271,21 +182,24 @@ export default function Needride() {
             </div>
                     <p style={{ color: "white" }}>hi</p>
                     <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
-                      <button 
-                        onClick={() => handleChatClick(record)}
-                        disabled={isCreatingRoom}
+                      <a 
+                        href="https://rider-chat-pji2.vercel.app"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         style={{
-                          backgroundColor: isCreatingRoom ? "#ccc" : "#ff69b4",
+                          backgroundColor: "#ff69b4",
                           color: "white",
                           border: "none",
                           padding: "10px 20px",
                           borderRadius: "5px",
-                          cursor: isCreatingRoom ? "not-allowed" : "pointer",
-                          fontSize: "16px"
+                          cursor: "pointer",
+                          fontSize: "16px",
+                          textDecoration: "none",
+                          display: "inline-block"
                         }}
                       >
-                        {isCreatingRoom ? "⏳ Starting Chat..." : "💬 Chat"}
-                      </button>
+                        💬 Chat
+                      </a>
                     </div>
           </div>
         ))
