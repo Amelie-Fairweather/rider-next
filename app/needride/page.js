@@ -111,7 +111,7 @@ export default function Needride() {
           fontSize: '14px',
           marginBottom: '15px'
         }}>
-          Join your town's community chat!
+          Join your town&apos;s community chat!
         </p>
         <div style={{
           display: 'flex',
