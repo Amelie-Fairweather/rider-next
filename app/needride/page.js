@@ -61,6 +61,12 @@ export default function Needride() {
     }
   }, [selectedTown, drivers]);
 
+  // Function to handle chat button click
+  const handleChatClick = (driver) => {
+    const driverName = driver.fields.Name;
+    const chatUrl = `https://rider-chat-pji2.vercel.app?room=${encodeURIComponent(driverName)}`;
+    window.open(chatUrl, '_blank');
+  };
 
   return (
     <div className="label">
@@ -82,6 +88,59 @@ export default function Needride() {
       <div className="text">
         <p>Time to get you where you need to go! Below you will find a list of qualified drivers who have signed up from the program!</p>
         <p>(Fee is dollars per mile)</p>
+      </div>
+
+      {/* Town Chat Rooms */}
+      <div style={{
+        margin: '20px 0',
+        padding: '20px',
+        backgroundColor: '#fef7f7',
+        borderRadius: '15px',
+        border: '2px solid #ffb6c1',
+        textAlign: 'center'
+      }}>
+        <h3 style={{
+          color: '#ff91a4',
+          marginBottom: '15px',
+          fontSize: '18px'
+        }}>
+          💬 Town Chat Rooms
+        </h3>
+        <p style={{
+          color: '#666',
+          fontSize: '14px',
+          marginBottom: '15px'
+        }}>
+          Join your town's community chat!
+        </p>
+        <div style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: '10px',
+          justifyContent: 'center'
+        }}>
+          {towns.filter(town => town !== 'Other').map(town => (
+            <button
+              key={town}
+              onClick={() => {
+                const chatUrl = `https://rider-chat-pji2.vercel.app?room=${encodeURIComponent(town)}`;
+                window.open(chatUrl, '_blank');
+              }}
+              style={{
+                padding: '8px 16px',
+                backgroundColor: '#ff69b4',
+                color: 'white',
+                border: 'none',
+                borderRadius: '20px',
+                cursor: 'pointer',
+                fontSize: '14px',
+                fontWeight: 'bold'
+              }}
+            >
+              🏘️ {town} Chat
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Town Filter */}
@@ -182,10 +241,8 @@ export default function Needride() {
             </div>
                     <p style={{ color: "white" }}>hi</p>
                     <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
-                      <a 
-                        href="https://rider-chat-pji2.vercel.app"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <button 
+                        onClick={() => handleChatClick(record)}
                         style={{
                           backgroundColor: "#ff69b4",
                           color: "white",
@@ -193,13 +250,11 @@ export default function Needride() {
                           padding: "10px 20px",
                           borderRadius: "5px",
                           cursor: "pointer",
-                          fontSize: "16px",
-                          textDecoration: "none",
-                          display: "inline-block"
+                          fontSize: "16px"
                         }}
                       >
                         💬 Chat
-                      </a>
+                      </button>
                     </div>
           </div>
         ))
