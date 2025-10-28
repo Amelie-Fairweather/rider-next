@@ -38,6 +38,13 @@ export default function Giveride() {
       return;
     }
     
+    // Check if phone number starts with 802 (Vermont area code)
+    const phoneNumber = form.lname.replace(/\D/g, ''); // Remove all non-digits
+    if (!phoneNumber.startsWith('802')) {
+      alert("Sorry, this service is only available for Vermont residents. Please enter a phone number starting with 802.");
+      return;
+    }
+    
     // Show the car animation
     setShowCarAnimation(true);
     
@@ -121,8 +128,24 @@ export default function Giveride() {
       <form id="loginForm" onSubmit={handleSubmit}>
         <label htmlFor="fname">Full name:</label><br />
         <input type="text" id="fname" name="fname" value={form.fname} onChange={handleChange} /><br /><br />
-        <label htmlFor="lname">Phone:</label><br />
-        <input type="text" id="lname" name="lname" value={form.lname} onChange={handleChange} /><br /><br />
+        <label htmlFor="lname">Phone (Vermont 802 area code required):</label><br />
+        <input 
+          type="text" 
+          id="lname" 
+          name="lname" 
+          value={form.lname} 
+          onChange={handleChange}
+          placeholder="802-xxx-xxxx"
+          style={{
+            border: form.lname && !form.lname.replace(/\D/g, '').startsWith('802') ? '2px solid #ff6b6b' : '1px solid #ccc'
+          }}
+        />
+        {form.lname && !form.lname.replace(/\D/g, '').startsWith('802') && (
+          <p style={{ color: '#ff6b6b', fontSize: '14px', margin: '5px 0 0 0' }}>
+            ⚠️ Vermont phone number required (must start with 802)
+          </p>
+        )}
+        <br /><br />
         <label htmlFor="kname">Fee per mile (include dollar sign):</label><br />
         <input type="text" id="kname" name="kname" value={form.kname} onChange={handleChange} /><br /><br />
         <label htmlFor="wname">date:</label><br />
